@@ -6,7 +6,7 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/09 20:40:49 by ggalon            #+#    #+#              #
-#    Updated: 2025/01/11 01:58:55 by ggalon           ###   ########.fr        #
+#    Updated: 2025/01/11 02:10:10 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,8 +78,7 @@ def train():
 
 	plt.plot(x, y, color='red')
 
-def precision():
-	return
+	print(f"Precision of the algorithm: {error}")
 
 train()
 predict()
