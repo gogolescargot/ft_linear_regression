@@ -6,26 +6,37 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/11 02:34:08 by ggalon            #+#    #+#              #
-#    Updated: 2025/01/11 15:01:53 by ggalon           ###   ########.fr        #
+#    Updated: 2025/06/06 13:52:50 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-import matplotlib.pyplot as plt
 import pickle as pkl
 
-mileage = int(input("Give mileage: "))
+import matplotlib.pyplot as plt
 
-with open('data.pkl', 'rb') as file:
-	data = pkl.load(file)
+try:
+    mileage = int(input("Give mileage: "))
 
-prediction = data['theta0'] + data['theta1'] * mileage
+    with open("data.pkl", "rb") as file:
+        data = pkl.load(file)
 
-print(f"Predicted price for {mileage} km: {prediction}")
-print(f"Precision of the algorithm: {data['error']}")
+    prediction = data["theta0"] + data["theta1"] * mileage
 
-plt.xlabel('Mileage')
-plt.ylabel('Price')
-plt.plot(data['x'], data['y'], color='red')
-plt.scatter(data['km'], data['price'])
-plt.scatter(mileage, prediction, color='green', zorder=3)
-plt.show()
+    print(f"Predicted price for {mileage} km: {prediction}")
+    print(f"Precision of the algorithm: {data['error']}")
+
+    plt.xlabel("Mileage")
+    plt.ylabel("Price")
+    plt.plot(data["x"], data["y"], color="red")
+    plt.scatter(data["km"], data["price"])
+    plt.scatter(mileage, prediction, color="green", zorder=3)
+    plt.show()
+
+except FileNotFoundError:
+    print("Error: The file 'data.pkl' was not found.")
+except KeyError as e:
+    print(f"Error: Missing key in data file: {e}")
+except ValueError:
+    print("Error: Invalid input. Please enter a valid integer for mileage.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
