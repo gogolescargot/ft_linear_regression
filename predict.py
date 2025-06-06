@@ -6,16 +6,28 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/11 02:34:08 by ggalon            #+#    #+#              #
-#    Updated: 2025/06/06 13:52:50 by ggalon           ###   ########.fr        #
+#    Updated: 2025/06/06 13:59:09 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import pickle as pkl
+import signal
 
 import matplotlib.pyplot as plt
 
 try:
+    signal.signal(
+        signal.SIGINT,
+        lambda *_: (
+            print("\033[2Dft_linear_regression: CTRL+C sent by user."),
+            exit(1),
+        ),
+    )
+
     mileage = int(input("Give mileage: "))
+
+    if mileage <= 0:
+        raise ValueError("Mileage must be greater than 0.")
 
     with open("data.pkl", "rb") as file:
         data = pkl.load(file)
@@ -36,7 +48,7 @@ except FileNotFoundError:
     print("Error: The file 'data.pkl' was not found.")
 except KeyError as e:
     print(f"Error: Missing key in data file: {e}")
-except ValueError:
-    print("Error: Invalid input. Please enter a valid integer for mileage.")
+except ValueError as e:
+    print(f"Error: {e}")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")

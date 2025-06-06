@@ -6,7 +6,7 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/11 02:34:05 by ggalon            #+#    #+#              #
-#    Updated: 2025/06/06 13:54:12 by ggalon           ###   ########.fr        #
+#    Updated: 2025/06/06 13:56:42 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,6 @@ try:
 except FileNotFoundError:
     print("Error: 'data.csv' file not found.")
 except ValueError as e:
-    print(f"ValueError: {e}")
+    print(f"Error: {e}")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
