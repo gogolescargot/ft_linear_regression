@@ -6,7 +6,7 @@
 #    By: ggalon <ggalon@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/11 02:34:05 by ggalon            #+#    #+#              #
-#    Updated: 2025/06/06 13:56:42 by ggalon           ###   ########.fr        #
+#    Updated: 2025/06/30 15:55:14 by ggalon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ try:
         "x": x,
         "y": y,
         "price": [elem * max_price for elem in price],
-        "km": [elem * max_km for elem in price],
+        "km": [elem * max_km for elem in km],
         "max_price": max_price,
         "max_km": max_km,
         "error": error,
