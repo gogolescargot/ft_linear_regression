@@ -20,15 +20,15 @@ try:
     with open("data.pkl", "rb") as file:
         data = pkl.load(file)
 
-    prediction = data["theta0"] + data["theta1"] * mileage
+    prediction = max(0, data["theta0"] + data["theta1"] * mileage)
 
-    print(f"Predicted price for {mileage} km: {prediction}")
-    print(f"Precision of the algorithm: {data['error']}")
+    print(f"Predicted price for {mileage} km: {prediction:.2f}")
+    print(f"Precision of the algorithm: {data['precision']:.2f}%")
 
     plt.xlabel("Mileage")
     plt.ylabel("Price")
     plt.plot(data["x"], data["y"], color="red")
-    plt.scatter(data["km"], data["price"])
+    plt.scatter(data["kms"], data["prices"])
     plt.scatter(mileage, prediction, color="green", zorder=3)
     plt.show()
 

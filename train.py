@@ -61,6 +61,18 @@ try:
     theta0 = theta0 * max_price
     theta1 = theta1 * max_price / max_km
 
+    prices = [elem * max_price for elem in price]
+    kms = [elem * max_km for elem in km]
+
+    price_mean = sum(prices) / m
+
+    ss_res = sum(
+        ((theta0 + theta1 * kms[i]) - prices[i]) ** 2 for i in range(m)
+    )
+    ss_tot = sum((p - price_mean) ** 2 for p in prices)
+    r2_score = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
+    precision = r2_score * 100
+
     x = np.linspace(0, max_km)
     y = theta0 + theta1 * x
 
@@ -69,11 +81,11 @@ try:
         "theta1": theta1,
         "x": x,
         "y": y,
-        "price": [elem * max_price for elem in price],
-        "km": [elem * max_km for elem in km],
+        "prices": prices,
+        "kms": kms,
         "max_price": max_price,
         "max_km": max_km,
-        "error": error,
+        "precision": precision,
     }
 
     with open("data.pkl", "wb") as file:
