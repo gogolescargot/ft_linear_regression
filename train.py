@@ -11,31 +11,33 @@ try:
         reader = csv.reader(csvfile)
         next(reader)
 
-        km = []
-        price = []
+        kms = []
+        prices = []
 
         for row in reader:
-            km.append(int(row[0]))
-            price.append(int(row[1]))
+            kms.append(int(row[0]))
+            prices.append(int(row[1]))
 
-    m = len(km)
+    m = len(kms)
 
     if m == 0:
         raise ValueError("The dataset is empty.")
 
-    max_km = max(km)
-    max_price = max(price)
+    max_km = max(kms)
+    max_price = max(prices)
 
-    for i in range(m):
-        km[i] /= max_km
-        price[i] /= max_price
+    kms_norm = [elem / max_km for elem in kms]
+    prices_norm = [elem / max_price for elem in prices]
 
     learning_rate = 0.01
     prev_error = float("inf")
 
     while True:
         error = (
-            sum(((theta0 + theta1 * km[i]) - price[i]) ** 2 for i in range(m))
+            sum(
+                ((theta0 + theta1 * kms_norm[i]) - prices_norm[i]) ** 2
+                for i in range(m)
+            )
             / m
         )
 
@@ -46,13 +48,17 @@ try:
 
         theta0 = theta0 - (
             learning_rate
-            * sum((theta0 + theta1 * km[i]) - price[i] for i in range(m))
+            * sum(
+                (theta0 + theta1 * kms_norm[i]) - prices_norm[i]
+                for i in range(m)
+            )
             / m
         )
         theta1 = theta1 - (
             learning_rate
             * sum(
-                ((theta0 + theta1 * km[i]) - price[i]) * km[i]
+                ((theta0 + theta1 * kms_norm[i]) - prices_norm[i])
+                * kms_norm[i]
                 for i in range(m)
             )
             / m
@@ -60,9 +66,6 @@ try:
 
     theta0 = theta0 * max_price
     theta1 = theta1 * max_price / max_km
-
-    prices = [elem * max_price for elem in price]
-    kms = [elem * max_km for elem in km]
 
     price_mean = sum(prices) / m
 
