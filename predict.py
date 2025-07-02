@@ -33,7 +33,9 @@ try:
     plt.show()
 
 except FileNotFoundError:
-    print("Error: The file 'data.pkl' was not found.")
+    print("Warning: The file 'data.pkl' was not found. Using default values.")
+    prediction = 0 + 0 * mileage
+    print(f"Predicted price for {mileage} km: {prediction:.2f}")
 except KeyError as e:
     print(f"Error: Missing key in data file: {e}")
 except ValueError as e:
